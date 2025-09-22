@@ -787,28 +787,6 @@ local tsLegend = tsOptions.legend;
       startY=6
     ),
 
-    local dashboardPanels =
-    [
-      summaryRow +
-      row.gridPos.withX(0) +
-      row.gridPos.withY(0) +
-      row.gridPos.withW(24) +
-      row.gridPos.withH(1)
-    ] +
-    summaryRowPanels +
-    individualProbes,
-
-    local dashboardPanelsWithSummaryRowCollapsed = [
-      summaryRow +
-      row.withCollapsed(true) +
-      row.gridPos.withX(0) +
-      row.gridPos.withY(0) +
-      row.gridPos.withW(24) +
-      row.gridPos.withH(1) +
-      row.withPanels(summaryRowPanels)
-    ] +
-    individualProbes,
-
     'blackbox-exporter.json':
       $._config.bypassDashboardValidation +
       dashboard.new(
@@ -823,7 +801,17 @@ local tsLegend = tsOptions.legend;
       dashboard.time.withTo('now') +
       dashboard.withVariables(variables) +
       dashboard.withPanels(
-          if $._config.summaryRowCollapsed then dashboardPanelsWithSummaryRowCollapsed else dashboardPanels
-        )
+        [
+          summaryRow +
+          row.gridPos.withX(0) +
+          row.gridPos.withY(0) +
+          row.gridPos.withW(24) +
+          row.gridPos.withH(1) +
+          row.withCollapsed($._config.summaryRowCollapsed) +
+          (if $._config.summaryRowCollapsed then row.withPanels(summaryRowPanels) else {})
+        ] +
+        (if $._config.summaryRowCollapsed then [] else summaryRowPanels) +
+        individualProbes
+      )
   },
 }
