@@ -712,80 +712,82 @@ local tsLegend = tsOptions.legend;
     // Set this to 0 for the flat layout, -9 for the collapsed layout
     local yOffset = if $._config.summaryRowCollapsed then -9 else 0,
 
-    local individualProbes = [
-      individualProbesRow +
-      row.gridPos.withX(0) +
-      row.gridPos.withY(yOffset + 10) +
-      row.gridPos.withW(24) +
-      row.gridPos.withH(1),
-      uptimeStatPanel +
-      statPanel.gridPos.withX(0) +
-      statPanel.gridPos.withY(yOffset + 11) +
-      statPanel.gridPos.withW(6) +
-      statPanel.gridPos.withH(4),
-      uptime30dStatPanel +
-      statPanel.gridPos.withX(0) +
-      statPanel.gridPos.withY(yOffset + 15) +
-      statPanel.gridPos.withW(6) +
-      statPanel.gridPos.withH(4),
-    ] +
-    grid.makeGrid(
-      [probeSuccessStatPanel, latestResponseCodeStatPanel],
-      panelWidth=3,
-      panelHeight=2,
-      startY=yOffset + 15
-    ) +
-    grid.makeGrid(
-      [sslStatPanel, sslVersionStatPanel],
-      panelWidth=3,
-      panelHeight=2,
-      startY=yOffset + 17
-    ) +
-    [
-      sslCertificateExpiryStatPanel +
-      statPanel.gridPos.withX(0) +
-      statPanel.gridPos.withY(yOffset + 19) +
-      statPanel.gridPos.withW(6) +
-      statPanel.gridPos.withH(2),
-    ] +
-    grid.makeGrid(
-      [redirectsStatPanel, httpVersionStatPanel],
-      panelWidth=3,
-      panelHeight=2,
-      startY=yOffset + 22
-    ) +
-    grid.makeGrid(
-      [averageLatencyStatPanel, averageDnsLookupStatPanel],
-      panelWidth=3,
-      panelHeight=4,
-      startY=yOffset + 25
-    ) +
-    [
-      probeDurationTimeSeriesPanel +
-      timeSeriesPanel.gridPos.withX(6) +
-      timeSeriesPanel.gridPos.withY(yOffset + 11) +
-      timeSeriesPanel.gridPos.withW(18) +
-      timeSeriesPanel.gridPos.withH(10),
-      probePhaseTimeSeriesPanel +
-      timeSeriesPanel.gridPos.withX(6) +
-      timeSeriesPanel.gridPos.withY(yOffset + 21) +
-      timeSeriesPanel.gridPos.withW(18) +
-      timeSeriesPanel.gridPos.withH(10),
-    ],
+    local individualProbes =
+      [
+        individualProbesRow +
+        row.gridPos.withX(0) +
+        row.gridPos.withY(yOffset + 10) +
+        row.gridPos.withW(24) +
+        row.gridPos.withH(1),
+        uptimeStatPanel +
+        statPanel.gridPos.withX(0) +
+        statPanel.gridPos.withY(yOffset + 11) +
+        statPanel.gridPos.withW(6) +
+        statPanel.gridPos.withH(4),
+        uptime30dStatPanel +
+        statPanel.gridPos.withX(0) +
+        statPanel.gridPos.withY(yOffset + 15) +
+        statPanel.gridPos.withW(6) +
+        statPanel.gridPos.withH(4),
+      ] +
+      grid.makeGrid(
+        [probeSuccessStatPanel, latestResponseCodeStatPanel],
+        panelWidth=3,
+        panelHeight=2,
+        startY=yOffset + 15
+      ) +
+      grid.makeGrid(
+        [sslStatPanel, sslVersionStatPanel],
+        panelWidth=3,
+        panelHeight=2,
+        startY=yOffset + 17
+      ) +
+      [
+        sslCertificateExpiryStatPanel +
+        statPanel.gridPos.withX(0) +
+        statPanel.gridPos.withY(yOffset + 19) +
+        statPanel.gridPos.withW(6) +
+        statPanel.gridPos.withH(2),
+      ] +
+      grid.makeGrid(
+        [redirectsStatPanel, httpVersionStatPanel],
+        panelWidth=3,
+        panelHeight=2,
+        startY=yOffset + 22
+      ) +
+      grid.makeGrid(
+        [averageLatencyStatPanel, averageDnsLookupStatPanel],
+        panelWidth=3,
+        panelHeight=4,
+        startY=yOffset + 25
+      ) +
+      [
+        probeDurationTimeSeriesPanel +
+        timeSeriesPanel.gridPos.withX(6) +
+        timeSeriesPanel.gridPos.withY(yOffset + 11) +
+        timeSeriesPanel.gridPos.withW(18) +
+        timeSeriesPanel.gridPos.withH(10),
+        probePhaseTimeSeriesPanel +
+        timeSeriesPanel.gridPos.withX(6) +
+        timeSeriesPanel.gridPos.withY(yOffset + 21) +
+        timeSeriesPanel.gridPos.withW(18) +
+        timeSeriesPanel.gridPos.withH(10),
+      ],
 
-    local summaryRowPanels = [
-      statusMapStatPanel +
-      statPanel.gridPos.withX(0) +
-      statPanel.gridPos.withY(1) +
-      statPanel.gridPos.withW(24) +
-      statPanel.gridPos.withH(5)
-    ] +
-    grid.makeGrid(
-      [probesStatPanel, probesSuccessStatPanel, probesSSLStatPanel, probeDurationStatPanel],
-      panelWidth=6,
-      panelHeight=4,
-      startY=6
-    ),
+    local summaryRowPanels =
+      [
+        statusMapStatPanel +
+        statPanel.gridPos.withX(0) +
+        statPanel.gridPos.withY(1) +
+        statPanel.gridPos.withW(24) +
+        statPanel.gridPos.withH(5),
+      ] +
+      grid.makeGrid(
+        [probesStatPanel, probesSuccessStatPanel, probesSSLStatPanel, probeDurationStatPanel],
+        panelWidth=6,
+        panelHeight=4,
+        startY=6
+      ),
 
     'blackbox-exporter.json':
       $._config.bypassDashboardValidation +
@@ -808,10 +810,10 @@ local tsLegend = tsOptions.legend;
           row.gridPos.withW(24) +
           row.gridPos.withH(1) +
           row.withCollapsed($._config.summaryRowCollapsed) +
-          (if $._config.summaryRowCollapsed then row.withPanels(summaryRowPanels) else {})
+          (if $._config.summaryRowCollapsed then row.withPanels(summaryRowPanels) else {}),
         ] +
         (if $._config.summaryRowCollapsed then [] else summaryRowPanels) +
         individualProbes
-      )
+      ),
   },
 }
